@@ -26,7 +26,7 @@ public class FileChannelTest01 {
                 // limit的长度就是文件的长度, 如果这里不转换模式，get()方法将读取不到任何数据
                 byteBuffer.flip();
 
-                // 非必要，将position的位置置为0，flip()已经完成
+                // 非必要，将position的位置置为0，flip()已经完成;
                 byteBuffer.rewind();
 
                 while (byteBuffer.hasRemaining()) {
