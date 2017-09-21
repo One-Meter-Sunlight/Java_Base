@@ -31,6 +31,7 @@ public class FileChannelTest01 {
 
                 while (byteBuffer.hasRemaining()) {
                     System.out.print((char) byteBuffer.get());
+                    //System.out.print(new String(byteBuffer.array()));
                 }
 
                 // 清空，准备再次写入;
