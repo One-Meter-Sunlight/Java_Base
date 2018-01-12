@@ -1,8 +1,9 @@
-package com.base.jdk8;
+package com.base.jdk8.date;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Describe：
@@ -23,6 +24,8 @@ public class DateTimeFormatterTest {
         LocalDateTime localDateTime = LocalDateTime.parse("2017-09-25 15:10:23", df2);
         System.out.println(localDateTime);
         System.out.println(df2.format(localDateTime));
+
+        System.out.println(df2.format(LocalDateTime.now().plusDays(1)));
 
     }
 
