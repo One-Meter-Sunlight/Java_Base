@@ -37,6 +37,7 @@ public class QQClient {
         try {
             pw.close();
             bt.close();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

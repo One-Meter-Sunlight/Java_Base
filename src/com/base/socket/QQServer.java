@@ -40,6 +40,7 @@ public class QQServer {
         try {
             pw.close();
             br.close();
+            server.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
