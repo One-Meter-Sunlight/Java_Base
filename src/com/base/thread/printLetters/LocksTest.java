@@ -48,6 +48,7 @@ public class LocksTest {
                 if (id != null) {
                     System.out.println(id + " update完成任务");
                 }
+                Thread.sleep(1500);
             } catch (Exception e) {
                 System.out.println(id + " update发生异常");
             } finally {
@@ -66,33 +67,41 @@ public class LocksTest {
      *
      * @param id
      */
-    public void select(Thread id) {
+    public void select(Thread id, int index) {
         try {
-            if (lock.tryLock(1000, TimeUnit.MILLISECONDS)) {
+            if (lock.tryLock(8000, TimeUnit.MILLISECONDS)) {
                 System.out.println(id + " update获得锁");
                 if (id != null) {
                     System.out.println(id + " update完成任务");
                 }
+                Thread.sleep(500);
+                if(index == 5) {
+                    throw new RuntimeException();
+                }
+                lock.unlock();
             } else {
                 System.out.println(id + " update未获得锁，--------未完成任务");
             }
         } catch (Exception e) {
-            System.out.println(id + " 发生异常");
-        } finally {
-            System.out.println(id + " update释放锁");
+            System.out.println(id + " 发生异常 == index = " +  index);
             lock.unlock();
+        } finally {
+            //
         }
     }
 
     public void delete(Thread id) {
         try {
             lock.lockInterruptibly();
+            int a = 1, b = 0;
+            int c = a/b;
             if (id != null) {
                 System.out.println(id + " 完成任务");
             }
         } catch (Exception e) {
             System.out.println(id + " 发生异常");
         } finally {
+            System.out.println(id + " 发生异常,释放锁");
             lock.unlock();
         }
     }
@@ -100,10 +109,11 @@ public class LocksTest {
     public static void main(String[] args) {
         final LocksTest test = new LocksTest();
         for (int i = 0; i < 10; i++) {
+            final int index = i;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    test.delete(Thread.currentThread());
+                    test.select(Thread.currentThread(), index);
                 }
             }).start();
         }
